@@ -75,8 +75,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                     if (user != null && e == null) {
                                         FancyToast.makeText(LogInActivity.this, user.getUsername()
                                                 + " is logged in", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                                        //Intent intent = new Intent(LogInActivity.this, WelcomeActivity.class);
-                                        //startActivity(intent);
+
+                                            transitionToSocialMediaActivity();
 
                                     } else {
                                         FancyToast.makeText(LogInActivity.this, "There was an error: " + e.getMessage(),
@@ -105,6 +105,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
 
+    }
+
+    private void transitionToSocialMediaActivity(){
+
+        Intent intent = new Intent(LogInActivity.this,SocialMediaActivity.class);
+        startActivity(intent);
     }
 
 }

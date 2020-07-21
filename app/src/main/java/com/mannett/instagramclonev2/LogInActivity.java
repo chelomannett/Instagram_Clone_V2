@@ -2,11 +2,14 @@ package com.mannett.instagramclonev2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -33,6 +36,18 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         btnLogIn_logIn_activity.setOnClickListener(LogInActivity.this);
         btnSignUp_logIn_activity.setOnClickListener(LogInActivity.this);
 
+        edtPasswordLogIn.setOnKeyListener(new View.OnKeyListener() { //to implement that enter key accepts.
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+
+                    onClick(btnLogIn_logIn_activity);
+                }
+
+                return false;
+            }
+        });
+
 
     }
 
@@ -42,8 +57,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
             case R.id.btnLogIn_logIn_activity:
 
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("Attempting to log in... ");
+                progressDialog.show();
+
                 ParseUser.logInInBackground(edtEmailLogIn.getText().toString(),
                         edtPasswordLogIn.getText().toString(), new LogInCallback() {
+
                             @Override
                             public void done(ParseUser user, ParseException e) {
 
@@ -58,6 +78,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                             FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
 
                                 }
+                                progressDialog.dismiss();
                             }
                         });
 

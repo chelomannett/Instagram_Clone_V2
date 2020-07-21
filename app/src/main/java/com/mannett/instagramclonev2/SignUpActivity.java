@@ -20,7 +20,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText edtEmailSignUp, edtUsernameSignUp, edtPasswordSignUp;
     private Button btnSignUp_signUp_activity, btnLogIn_signUp_activity;
 
-    private int ratto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,4 +3,7 @@
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
     <string name="back4app_app_id">P1rL3NmyTsVKaeDtO9JKx7DkrBjA3wbz87B2ejHa</string>
     <string name="back4app_client_key">Z9bG07venufia4d19A6MS9s7O9cHw6TVmLpYdT5g</string>
+
+    <string name="title_sign_up_activity">Sign Up</string>
+    <string name="title_log_in_activity">Log In</string>
 </resources>

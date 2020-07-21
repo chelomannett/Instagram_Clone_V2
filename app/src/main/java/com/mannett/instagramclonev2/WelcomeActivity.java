@@ -13,22 +13,27 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 public class WelcomeActivity extends AppCompatActivity {
 
     private TextView txtWelcome;
-    private Button btnLogOut;
+    private Button btnLogOut_welcome_activity;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+
+
         txtWelcome = findViewById(R.id.txtWelcome);
-        btnLogOut = findViewById(R.id.btnLogOut);
+        btnLogOut_welcome_activity = findViewById(R.id.btnLogOut);
 
         txtWelcome.setText("Welcome "+ ParseUser.getCurrentUser().getUsername() +"!");
 
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
+        btnLogOut_welcome_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FancyToast.makeText(WelcomeActivity.this,  ParseUser.getCurrentUser().getUsername() +" is logged out", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                FancyToast.makeText(WelcomeActivity.this,
+                        ParseUser.getCurrentUser().getUsername() +" is logged out",
+                        FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
                 ParseUser.logOut();
                 finish();
             }

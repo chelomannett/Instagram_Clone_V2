@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edtEmailLogIn" />
 
     <Button
-        android:id="@+id/btnLogIn"
+        android:id="@+id/btnLogIn_logIn_activity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edtPasswordLogIn" />
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnSignUp_logIn_activity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -89,6 +89,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogIn" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogIn_logIn_activity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

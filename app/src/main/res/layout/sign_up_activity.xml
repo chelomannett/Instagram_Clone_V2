@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEE6176A"
+    android:onClick="rootLayoutTapped"
     tools:context=".SignUpActivity">
 
     <ImageView

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -56,32 +57,36 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         switch (view.getId()){
             case R.id.btnLogIn_logIn_activity:
+                if (edtEmailLogIn.getText().toString().equals("") || edtPasswordLogIn.getText().toString().equals("")){
+                    FancyToast.makeText(LogInActivity.this,
+                            "Email and Password are required",
+                            FancyToast.LENGTH_SHORT, FancyToast.INFO, true).show();
+                }else {
+                    final ProgressDialog progressDialog = new ProgressDialog(this);
+                    progressDialog.setMessage("Attempting to log in... ");
+                    progressDialog.show();
 
-                final ProgressDialog progressDialog = new ProgressDialog(this);
-                progressDialog.setMessage("Attempting to log in... ");
-                progressDialog.show();
+                    ParseUser.logInInBackground(edtEmailLogIn.getText().toString(),
+                            edtPasswordLogIn.getText().toString(), new LogInCallback() {
 
-                ParseUser.logInInBackground(edtEmailLogIn.getText().toString(),
-                        edtPasswordLogIn.getText().toString(), new LogInCallback() {
+                                @Override
+                                public void done(ParseUser user, ParseException e) {
 
-                            @Override
-                            public void done(ParseUser user, ParseException e) {
+                                    if (user != null && e == null) {
+                                        FancyToast.makeText(LogInActivity.this, user.getUsername()
+                                                + " is logged in", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                                        //Intent intent = new Intent(LogInActivity.this, WelcomeActivity.class);
+                                        //startActivity(intent);
 
-                                if (user != null && e == null){
-                                    FancyToast.makeText(LogInActivity.this,  user.getUsername()
-                                            +" is logged in", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                                    //Intent intent = new Intent(LogInActivity.this, WelcomeActivity.class);
-                                    //startActivity(intent);
+                                    } else {
+                                        FancyToast.makeText(LogInActivity.this, "There was an error: " + e.getMessage(),
+                                                FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
 
-                                }else{
-                                    FancyToast.makeText(LogInActivity.this, "There was an error: "+ e.getMessage(),
-                                            FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
-
+                                    }
+                                    progressDialog.dismiss();
                                 }
-                                progressDialog.dismiss();
-                            }
-                        });
-
+                            });
+                }
                 break;
             case R.id.btnSignUp_logIn_activity:
 
@@ -91,4 +96,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
+    public void rootLayoutTapped(View view){ //HIDES KEYBOARD WHEN TAPPED ON OTHER AREA
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

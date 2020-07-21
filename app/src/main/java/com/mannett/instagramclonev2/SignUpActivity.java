@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         edtPasswordSignUp = findViewById(R.id.edtPasswordSignUp);
         btnSignUp_signUp_activity = findViewById(R.id.btnSignUp_signUp_activity);
         btnLogIn_signUp_activity = findViewById(R.id.btnLogIn_signUp_activity);
+
+        edtPasswordSignUp.setOnKeyListener(new View.OnKeyListener() { //to implement that enter key accepts.
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+
+                    onClick(btnSignUp_signUp_activity);
+                }
+
+                return false;
+            }
+        });
 
         btnSignUp_signUp_activity.setOnClickListener(SignUpActivity.this);
         btnLogIn_signUp_activity.setOnClickListener(SignUpActivity.this);

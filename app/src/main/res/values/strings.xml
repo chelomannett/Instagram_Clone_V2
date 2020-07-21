@@ -6,4 +6,6 @@
 
     <string name="title_sign_up_activity">Sign Up</string>
     <string name="title_log_in_activity">Log In</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

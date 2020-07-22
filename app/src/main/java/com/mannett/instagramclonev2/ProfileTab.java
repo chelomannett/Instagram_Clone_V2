@@ -2,15 +2,14 @@ package com.mannett.instagramclonev2;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -87,7 +86,6 @@ public class ProfileTab extends Fragment {
         final ParseUser parseUser = ParseUser.getCurrentUser(); //With this line we have a reference of the current user
         txtProfile_CurrentUser.setText(parseUser.getUsername().toString()+" is logged in.");
 
-        btnProfile_UpdateInfo.setEnabled(false);
 
         //GETTING THE DATA FROM THE SERVER
         if (parseUser.get("profileName") == null){
@@ -116,9 +114,6 @@ public class ProfileTab extends Fragment {
         }else{
         edtProfile_FavSports.setText(parseUser.get("profileFavSport").toString());}
 
-       // if (edtProfile_ProfileName.getText().toString() != parseUser.get("profileName")){
-       //     btnProfile_UpdateInfo.setEnabled(true);
-       // }
 
 
         //PUTTING THE DATA TO THE SERVER

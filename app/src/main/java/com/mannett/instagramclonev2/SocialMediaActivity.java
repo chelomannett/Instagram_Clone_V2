@@ -20,5 +20,23 @@ public class SocialMediaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social_media);
+
+        setTitle("Social Media App!");
+
+        toolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(toolbar);
+
+        viewPager = findViewById(R.id.viewPager);
+        tabAdapter = new TabAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager,false); //set the autorefresh to false
+
+
+
+
+
+
     }
 }

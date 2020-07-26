@@ -89,6 +89,16 @@ public class SocialMediaActivity extends AppCompatActivity {
                 captureImage();
             }
 
+        } else if  (item.getItemId() == R.id.logoutUserItem) {
+            String user = ParseUser.getCurrentUser().get("username").toString();
+
+            ParseUser.getCurrentUser().logOut();
+            FancyToast.makeText(SocialMediaActivity.this,user + " is logged out",
+                    Toast.LENGTH_SHORT,FancyToast.SUCCESS,true).show();
+
+            finish();
+            Intent intent = new Intent(SocialMediaActivity.this,LogInActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

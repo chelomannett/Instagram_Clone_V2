@@ -1,7 +1,5 @@
 package com.mannett.instagramclonev2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -111,6 +110,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         Intent intent = new Intent(LogInActivity.this,SocialMediaActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

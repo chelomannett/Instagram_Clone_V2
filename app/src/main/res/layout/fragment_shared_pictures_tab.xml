@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SharedPicturesTab">
+    tools:context=".SharedPicturesTab"
+    android:background="#A7BC1E">
 
 
     <ImageView
@@ -33,6 +34,7 @@
         android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="Please enter a description for your image..."
+        android:textColorHint="#061157"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +47,7 @@
         android:layout_marginTop="8dp"
         android:background="#E65509"
         android:text="SHARE IMAGE"
+        android:textStyle="bold"
         android:textColor="#0103CC"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

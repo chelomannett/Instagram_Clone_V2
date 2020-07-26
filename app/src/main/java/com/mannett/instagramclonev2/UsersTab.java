@@ -1,9 +1,11 @@
 package com.mannett.instagramclonev2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -18,15 +21,20 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UsersTab#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UsersTab extends Fragment {
+public class UsersTab extends Fragment
+        implements AdapterView.OnItemClickListener,
+                    AdapterView.OnItemLongClickListener{
 
     private ListView listView;
-    private ArrayList arrayList;
+    private ArrayList<String> arrayList;
     private ArrayAdapter arrayAdapter;
     private TextView txtUsers_DownloadingData;
 
@@ -81,6 +89,9 @@ public class UsersTab extends Fragment {
         arrayList = new ArrayList();
         arrayAdapter = new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1, arrayList);
 
+        listView.setOnItemClickListener(UsersTab.this);
+        listView.setOnItemLongClickListener(UsersTab.this);
+
         txtUsers_DownloadingData.setText("Downloading data from server...");
 
         ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
@@ -108,5 +119,63 @@ public class UsersTab extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Intent intent = new Intent(getContext(), UsersPosts.class);
+        intent.putExtra("username", arrayList.get(position));
+        //putExtra is used to send data from one activity to another. or from a fragment to another
+        startActivity(intent);
+
+
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
+        parseQuery.whereEqualTo("username", arrayList.get(position));
+
+        parseQuery.getFirstInBackground(new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+
+                if (user != null && e ==null) {
+
+//                    FancyToast.makeText(getContext(),
+//                            user.get("profileProfession")+"",
+//                            Toast.LENGTH_SHORT,FancyToast.SUCCESS,
+//                            true).show();
+
+                  final PrettyDialog prettyDialog = new PrettyDialog(getContext());
+                           prettyDialog
+                           .setTitle(user.get("username") + " 's Info")
+                            .setMessage("Bio: "+  user.get("profileBio") + "\n"
+                                       +"Profession: "+ user.get("profileProfession") + "\n"
+                                          +"Hobbies: "+ user.get("profileHobbies") + "\n"
+                                          +"Favorite Sport: "+ user.get("profileFavSport") + "\n")
+                            .setIcon(R.drawable.person)
+                            .addButton(
+                                    "OK", //button text
+                                    R.color.pdlg_color_white, //button text color
+                                    R.color.pdlg_color_green, //button background color
+                                    new PrettyDialogCallback() {
+                                        @Override
+                                        public void onClick() {
+                                            // Do what you gotta do
+                                            prettyDialog.dismiss();
+                                        }
+                                    }
+
+                            )
+                            .show();
+
+                }
+            }
+        });
+
+        return true;
     }
 }
